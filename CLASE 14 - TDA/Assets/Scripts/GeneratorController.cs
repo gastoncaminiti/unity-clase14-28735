@@ -5,7 +5,7 @@ using UnityEngine;
 public class GeneratorController : MonoBehaviour
 {
     enum Difficulties { Easy = 1, Normal, Hard };
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject[] enemyPrefabs;
     [SerializeField] float spawnInterval = 2f;
     [SerializeField] float spawnDelay = 2f;
 
@@ -40,6 +40,8 @@ public class GeneratorController : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform);
+        int enemyIndex = Random.Range(0,enemyPrefabs.Length);
+        //Instantiate(enemyPrefabs[1], transform);
+        Instantiate(enemyPrefabs[enemyIndex], transform.position, enemyPrefabs[enemyIndex].transform.rotation);
     }
 }

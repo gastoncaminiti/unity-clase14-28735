@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int score, powerupSpeed;
+    public int score, powerupSpeed, lastSP;
 
     private void Awake()
     {

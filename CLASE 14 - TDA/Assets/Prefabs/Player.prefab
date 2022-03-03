@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 8817404631328593558}
   - component: {fileID: 5384551966507785513}
   - component: {fileID: 7776661542414152205}
+  - component: {fileID: 7005411396149733070}
   - component: {fileID: 1599553821}
   m_Layer: 0
   m_Name: Player
@@ -143,6 +144,21 @@ MonoBehaviour:
   timePass: 0
   speedJump: 2
   playerAnimator: {fileID: 297861535}
+  jumpSound: {fileID: 0}
+  shootSound: {fileID: 0}
+  speedLimit: 15
+--- !u!114 &7005411396149733070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817404631328593557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f09e693c76e5a499c67d7045ca7d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &1599553821
 Rigidbody:
   m_ObjectHideFlags: 0

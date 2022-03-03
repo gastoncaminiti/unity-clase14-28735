@@ -28,14 +28,18 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource audioPlayer;
     private Rigidbody rbPlayer;
     //VARIABLES BOOLEANAS PARA CONTROLAR INPUTS
-    private bool isJump, isBack, isForward,isStatic;
+    private bool isJump, isBack, isForward, isStatic;
     public float speedLimit = 15f;
+
+    private InventoryManager mgInventory;
 
     void Start()
     {
         parentBullets = GameObject.Find("DinamycBullets");
         audioPlayer = GetComponent<AudioSource>();
         rbPlayer = GetComponent<Rigidbody>();
+        mgInventory = GetComponent<InventoryManager>();
+        transform.position = FindObjectOfType<SavepointsManager>().GetSavePoint(GameManager.instance.lastSP).position;
 
     }
     void Update()
@@ -44,13 +48,53 @@ public class PlayerMovement : MonoBehaviour
         RotatePlaye();
         ShootPlayer();
         JumpPlayer();
+        UseItemInventoryOne();
+        UseItemInventoryTwo();
+        UseItemInventoryThree();
 
     }
+
+    private void UseItemInventoryOne()
+    {
+        if (Input.GetKeyDown(KeyCode.G) && mgInventory.InventoryOneHas())
+        {
+            GameObject gem = mgInventory.GetInventoryOne();
+            mgInventory.SeeInventoryOne();
+            UseGem(gem);
+        }
+    }
+
+    private void UseGem(GameObject gem)
+    {
+        gem.SetActive(true);
+        gem.transform.position = transform.position + (Vector3.forward  * 2f);
+    }
+
+    private void UseItemInventoryTwo()
+    {
+        if (Input.GetKeyDown(KeyCode.H) && mgInventory.InventoryOneHas())
+        {
+            GameObject gem = mgInventory.GetInventoryTwo();
+            mgInventory.SeeInventoryTwo();
+            UseGem(gem);
+        }
+    }
+
+    private void UseItemInventoryThree()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && mgInventory.InventoryOneHas())
+        {
+            GameObject gem = mgInventory.GetInventoryThree("Gem");
+            mgInventory.SeeInventoryThree();
+            UseGem(gem);
+        }
+    }
+
 
     private void FixedUpdate()
     {
         float playerSpeed = rbPlayer.velocity.magnitude;
-        bool  isLimit = (playerSpeed > speedLimit);
+        bool isLimit = (playerSpeed > speedLimit);
 
         if (isForward && !isLimit)
         {
@@ -62,11 +106,12 @@ public class PlayerMovement : MonoBehaviour
             MoveRelativeForce(Vector3.back);
         }
 
-        if(isJump){
+        if (isJump)
+        {
             rbPlayer.AddForce(Vector3.up * speedJump, ForceMode.Impulse);
             isJump = false;
         }
-   
+
     }
 
     private void JumpPlayer()
@@ -158,5 +203,9 @@ public class PlayerMovement : MonoBehaviour
         Quaternion angulo = Quaternion.Euler(0f, cameraAxisX * 0.5f, 0f);
         //3 ROTAR
         transform.localRotation = angulo;
+    }
+
+    public InventoryManager GetPlayerInventory(){
+        return mgInventory;
     }
 }
